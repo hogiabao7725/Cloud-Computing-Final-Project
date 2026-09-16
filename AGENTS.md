@@ -7,3 +7,35 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Project Testing Conventions
+
+1. **Colocated Unit Tests:**
+   - All unit tests MUST be colocated directly next to their source files.
+   - Example: `src/lib/auth.ts` -> `src/lib/auth.test.ts`, `src/components/Button.tsx` -> `src/components/Button.test.tsx`.
+   - Do NOT place unit tests in a centralized root `__tests__/` folder.
+
+2. **Smoke, Integration & E2E Tests:**
+   - System-wide tests live in organized subdirectories under the root `tests/` directory:
+     - `tests/smoke/` (e.g. `tests/smoke/smoke.test.ts`)
+     - `tests/integration/`
+     - `tests/e2e/`
+
+3. **Package Manager:**
+   - Always use `pnpm`. Do NOT use `npm` or `yarn`.
+
+## Git Commit Conventions
+
+All commits MUST follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+Format: `<type>(<optional-scope>): <description>` (use lowercase, imperative mood)
+
+Common types:
+
+- `feat`: A new user-facing feature or API endpoint
+- `fix`: A bug fix
+- `docs`: Documentation updates only (e.g. README.md, AGENTS.md)
+- `chore`: Tooling, dependency management, or build configs without altering app logic
+- `test`: Adding or updating tests (unit, smoke, integration)
+- `refactor`: Code refactoring that neither fixes a bug nor adds a feature
+- `style`: Formatting, missing semi-colons, lint fixes (no code logic change)
